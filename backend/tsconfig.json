@@ -1,0 +1,64 @@
+// {
+//   // Visit https://aka.ms/tsconfig to read more about this file
+//   "compilerOptions": {
+//     // File Layout
+//     // "rootDir": "./src",
+//     // "outDir": "./dist",
+
+//     // Environment Settings
+//     // See also https://aka.ms/tsconfig/module
+//     "module": "nodenext",
+//     "target": "esnext",
+//     "types": [],
+//     // For nodejs:
+//     // "lib": ["esnext"],
+//     // "types": ["node"],
+//     // and npm install -D @types/node
+
+//     // Other Outputs
+//     "sourceMap": true,
+//     "declaration": true,
+//     "declarationMap": true,
+
+//     // Stricter Typechecking Options
+//     "noUncheckedIndexedAccess": true,
+//     "exactOptionalPropertyTypes": true,
+
+//     // Style Options
+//     // "noImplicitReturns": true,
+//     // "noImplicitOverride": true,
+//     // "noUnusedLocals": true,
+//     // "noUnusedParameters": true,
+//     // "noFallthroughCasesInSwitch": true,
+//     // "noPropertyAccessFromIndexSignature": true,
+
+//     // Recommended Options
+//     "strict": true,
+//     "jsx": "react-jsx",
+//     "verbatimModuleSyntax": true,
+//     "isolatedModules": true,
+//     "noUncheckedSideEffectImports": true,
+//     "moduleDetection": "force",
+//     "skipLibCheck": true,
+//   }
+// }
+{
+  "compilerOptions": {
+    "target": "ES2020",                        // Modern JS output
+    "module": "nodenext",                      // Required for Node.js
+    "outDir": "./dist",                        // Output directory for compiled JS
+    "rootDir": "./src",                        // Root of your TS source files
+    "moduleResolution": "node16",                // Use Node.js module resolution logic
+    "esModuleInterop": true,                   // Allows default imports from CommonJS
+    "forceConsistentCasingInFileNames": true,  // Ensures consistent imports
+    "strict": true,                            // Enables all strict type-checking options
+    "skipLibCheck": true,                      // Speeds up build by skipping type check on node_modules
+    "resolveJsonModule": true,                 // Allow import of .json files
+    "types": ["node"],                         // Include Node.js types
+    "noEmitOnError": true,                      // Avoid emitting code if there's a type error
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    // "ignoreDeprecations": "6.0"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

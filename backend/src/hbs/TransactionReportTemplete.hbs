@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Financial Report</title>
+</head>
+
+<body
+    style="margin:0; padding:0; min-height: 100%; display:flex; flex-direction:column; font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif; color:#2d3436; font-size:14px; background:#fff;">
+
+    <main style="flex:1; padding:30px 25px; min-width: 90%; margin:0 auto; background:#fff;">
+        <!-- HEADER -->
+        <header style="text-align:center; padding-bottom:15px; border-bottom:3px solid #4970E4; margin-bottom:25px;">
+            <h1 style="font-size:30px; margin:0; color:#4970E4;">Financial Report</h1>
+            <p style="font-size:15px; margin-top:6px; color:#636e72;">Reporting Period: {{period}}</p>
+            <p style="font-size:13px; margin-top:4px; color:#b2bec3;">Generated on: {{generatedOn}}</p>
+        </header>
+
+        <!-- INCOME SECTION -->
+        {{#if income.length}}
+        <section style="margin-top: 20px; page-break-inside: avoid; padding-top: 20px; page-break-after: always;">
+            <h2
+                style="font-size:20px; margin:35px 0 15px; color:#2d3436; border-left:5px solid #4970E4; padding-left:10px;">
+                Income Transactions</h2>
+            <table
+                style="width:100%; border-collapse:collapse; font-size:13px; border:1px solid #dfe6e9; margin-top:10px; page-break-inside:auto;">
+                <thead>
+                    <tr style="background:#f1f2f6; font-weight:bold; text-transform:uppercase; font-size:12px;">
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Date</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Description</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Category</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Amount
+                            ({{currencySymbol}})</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each income}}
+                    <tr style="page-break-inside: avoid;">
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{date}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{description}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{category}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{../currencySymbol}}{{amount}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+            <!-- Per-category totals -->
+            {{#if incomeCategoryTotals}}
+            <div
+                style="margin-top:20px; page-break-inside: avoid; padding:18px; border-radius:6px; background:#f8f9fa; border:1px solid #dcdde1;">
+                <p style="margin:6px 0; font-size:14px; font-weight:bold; color:#2c3e50;">Income by Category:</p>
+                <ul style="margin:0 0 0 20px; padding:0;">
+                    {{#each incomeCategoryTotals}}
+                    <li style="margin:3px 0;">{{@key}}: {{../currencySymbol}}{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/if}}
+
+            <!-- Overall total -->
+            {{#if totalIncome}}
+            <p style="margin-top:10px; page-break-inside: avoid; font-size:14px; font-weight:bold; color:#2c3e50;">Total
+                Income:
+                {{currencySymbol}}{{totalIncome}}</p>
+            {{/if}}
+        </section>
+        {{/if}}
+
+        <!-- EXPENSE SECTION -->
+        {{#if expense.length}}
+        <section style="margin-top: 20px; page-break-inside: avoid; padding-top: 20px; page-break-after: always;">
+            <h2
+                style="font-size:20px; margin:35px 0 15px; color:#2d3436; border-left:5px solid #4970E4; padding-left:10px;">
+                Expense Transactions</h2>
+            <table
+                style="width:100%; border-collapse:collapse; font-size:13px; border:1px solid #dfe6e9; margin-top:10px; page-break-inside:auto;">
+                <thead>
+                    <tr style="background:#f1f2f6; font-weight:bold; text-transform:uppercase; font-size:12px;">
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Date</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Description</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Category</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Amount
+                            ({{currencySymbol}})</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each expense}}
+                    <tr style="page-break-inside: avoid;">
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{date}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{description}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{category}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{../currencySymbol}}{{amount}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+            <!-- Per-category totals -->
+            {{#if expenseCategoryTotals}}
+            <div
+                style="margin-top:20px; page-break-inside: avoid; padding:18px; border-radius:6px; background:#f8f9fa; border:1px solid #dcdde1;">
+                <p style="margin:6px 0; font-size:14px; font-weight:bold; color:#2c3e50;">Expense by Category:</p>
+                <ul style="margin:0 0 0 20px; padding:0;">
+                    {{#each expenseCategoryTotals}}
+                    <li style="margin:3px 0;">{{@key}}: {{../currencySymbol}}{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/if}}
+
+            <!-- Overall total -->
+            {{#if totalExpense}}
+            <p style="margin-top:10px; page-break-inside: avoid; font-size:14px; font-weight:bold; color:#2c3e50;">Total
+                Expense:
+                {{currencySymbol}}{{totalExpense}}</p>
+            {{/if}}
+        </section>
+        {{/if}}
+
+        <!-- NO DATA MESSAGE -->
+        {{#unless income.length}}
+        {{#unless expense.length}}
+        <p style="margin-top:20px; font-size:14px; color:#888;">No financial transactions found for this period.</p>
+        {{/unless}}
+        {{/unless}}
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+        style="margin-top:auto; font-size:11px; position: fixed; bottom: 0; width: 100%; text-align:center; color:#636e72; padding:12px 8px; border-top:1px solid #dfe6e9;">
+        <p style="margin:0;">Confidential Financial Report | TaxPal</p>
+    </footer>
+</body>
+
+</html>

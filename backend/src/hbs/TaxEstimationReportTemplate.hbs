@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tax Estimation Report</title>
+</head>
+
+<body
+    style="margin:0; padding:0; min-height:100%; display:flex; flex-direction:column; font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif; color:#2d3436; font-size:14px; background:#fff;">
+
+    <main style="flex:1; padding:30px 25px; min-width:90%; margin:0 auto; background:#fff;">
+        <!-- HEADER -->
+        <header style="text-align:center; padding-bottom:15px; border-bottom:3px solid #4970E4; margin-bottom:25px;">
+            <h1 style="font-size:30px; margin:0; color:#4970E4;">Tax Estimation Report</h1>
+            <p style="font-size:15px; margin-top:6px; color:#636e72;">Reporting Period: {{period}}</p>
+            <p style="font-size:13px; margin-top:4px; color:#b2bec3;">Generated on: {{generatedOn}}</p>
+        </header>
+
+        <!-- TAX ESTIMATION TABLE -->
+        <section style="margin-top: 20px; page-break-inside: avoid; padding-top: 20px;">
+            <h2
+                style="font-size:20px; margin:35px 0 15px; color:#2d3436; border-left:5px solid #4970E4; padding-left:10px;">
+                Tax Estimations
+            </h2>
+
+            {{#if taxEstimations.length}}
+            <table
+                style="width:100%; border-collapse:collapse; font-size:13px; border:1px solid #dfe6e9; margin-top:10px; page-break-inside:auto;">
+                <thead>
+                    <tr style="background:#f1f2f6; font-weight:bold; text-transform:uppercase; font-size:12px;">
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Title</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Description</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Status</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Due Date</th>
+                        <th style="border:1px solid #dfe6e9; padding:10px 12px; text-align:left;">Estimated Tax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each taxEstimations}}
+                    <tr style="page-break-inside: avoid;">
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{title}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{description}}</td>
+
+                        <!-- CONDITIONAL STATUS COLORS -->
+                        {{#if (eq status "Pending")}}
+                        <td
+                            style="border:1px solid #dfe6e9; padding:10px 12px; font-weight:bold; background:#fff3e0; color:#e67e22; border:1px solid #e67e22;">
+                            Pending</td>
+                        {{else if (eq status "Completed")}}
+                        <td
+                            style="border:1px solid #dfe6e9; padding:10px 12px; font-weight:bold; background:#eafaf1; color:#27ae60; border:1px solid #27ae60;">
+                            Completed</td>
+                        {{else if (eq status "Overdue")}}
+                        <td
+                            style="border:1px solid #dfe6e9; padding:10px 12px; font-weight:bold; background:#fdecea; color:#c0392b; border:1px solid #c0392b;">
+                            Overdue</td>
+                        {{else}}
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{status}}</td>
+                        {{/if}}
+
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">{{dueDate}}</td>
+                        <td style="border:1px solid #dfe6e9; padding:10px 12px;">
+                            {{currencySymbol}}{{estimatedTaxFormatted}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>No tax estimations found for this period.</p>
+            {{/if}}
+        </section>
+
+        <!-- SUMMARY -->
+        {{#if totalTax}}
+        <section style="margin-top: 20px; page-break-inside: avoid;">
+            <h2
+                style="font-size:20px; margin:35px 0 15px; color:#2d3436; border-left:5px solid #4970E4; padding-left:10px;">
+                Summary
+            </h2>
+            <div
+                style="margin-top:20px; padding:18px; border-radius:6px; background:#f8f9fa; border:1px solid #dcdde1;">
+                <p style="margin:6px 0; font-size:14px;"><strong style="color:#2c3e50;">Total Estimated Tax:</strong>
+                    {{currencySymbol}}{{totalTax}}</p>
+                {{#if pendingTax}}<p style="margin:6px 0; font-size:14px;"><strong style="color:#2c3e50;">Pending
+                        Tax:</strong> {{currencySymbol}}{{pendingTax}}</p>{{/if}}
+                {{#if completedTax}}<p style="margin:6px 0; font-size:14px;"><strong style="color:#2c3e50;">Completed
+                        Tax:</strong> {{currencySymbol}}{{completedTax}}</p>{{/if}}
+                {{#if overdueTax}}<p style="margin:6px 0; font-size:14px;"><strong style="color:#2c3e50;">Overdue
+                        Tax:</strong> {{currencySymbol}}{{overdueTax}}</p>{{/if}}
+                {{#if totalDueTax}}<p style="margin:6px 0; font-size:14px;"><strong style="color:#2c3e50;">Total Tax Due
+                        (Pending + Overdue):</strong> {{currencySymbol}}{{totalDueTax}}</p>{{/if}}
+            </div>
+        </section>
+        {{/if}}
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+        style="margin-top:auto; position: fixed; bottom: 0; width: 100%; font-size:11px; text-align:center; color:#636e72; padding:12px 8px; border-top:1px solid #dfe6e9;">
+        <p style="margin:0;">Confidential Tax Report | TaxPal</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* tailwind import with customizable theme */
+@import "tailwindcss";
+
+@theme {
+    --color-customBlue: #4970E4;
+    --color-customRed: #f64949;
+    --color-customBlack: #000000;
+
+    --font-instrument: "Instrument Sans", sans-serif;
+    --font-roboto: "Roboto", sans-serif;
+    --font-istok: "Istok Web", sans-serif;
+
+    --shadow-customShadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f1f5f9;
+}
+
+input[type=password]::-webkit-contacts-auto-fill-button,
+input[type=password]::-webkit-credentials-auto-fill-button {
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+}
+
+/* For Microsoft Edge and IE */
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear {
+    display: none;
+}
